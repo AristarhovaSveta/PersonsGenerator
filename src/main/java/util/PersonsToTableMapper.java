@@ -19,7 +19,7 @@ public class PersonsToTableMapper {
                 person.getSurname(), person.getName(), person.getPatronymic(),
                 String.valueOf(person.getAge()), person.getSex() == Sex.MALE ? "М" : "Ж",
                 DateUtils.formatDate(person.getBirthDate()),
-                person.getInn(), String.valueOf(person.getPostcode()), person.getCountry(),
+                person.getInn(), person.getPostcode(), person.getCountry(),
                 person.getArea(),
                 person.getCity(), person.getStreet(), String.valueOf(person.getHome()),
                 String.valueOf(person.getRoom())

@@ -2,25 +2,27 @@ package domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import org.joda.time.LocalDate;
 
 @AllArgsConstructor
 @Getter
+@Setter
 @ToString
 public class Person {
-    private final String surname;
-    private final String name;
-    private final String patronymic;
-    private final int age;
-    private final Sex sex;
-    private final LocalDate birthDate;
-    private final String inn;
-    private final int postcode;
-    private final String country;
-    private final String area;
-    private final String city;
-    private final String street;
-    private final int home;
-    private final int room;
+    private String surname;
+    private String name;
+    private String patronymic;
+    private int age;
+    private Sex sex;
+    private LocalDate birthDate;
+    private String inn;
+    private String postcode;
+    private String country;
+    private String area;
+    private String city;
+    private String street;
+    private int home;
+    private int room;
 }

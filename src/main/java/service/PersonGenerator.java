@@ -40,12 +40,20 @@ public class PersonGenerator {
                 surname, name, patronymic,
                 age, sex, birthdate,
                 RandomUtils.randomInn(),
-                RandomUtils.randomNumber(100000, 200000),
+                String.valueOf(RandomUtils.randomNumber(100000, 200000)),
                 RandomUtils.randomLineFromResourceFile(COUNTRIES_FILE),
                 RandomUtils.randomLineFromResourceFile(AREAS_FILE),
                 RandomUtils.randomLineFromResourceFile(CITIES_FILE),
                 RandomUtils.randomLineFromResourceFile(STREETS_FILE),
                 RandomUtils.randomNumber(1, 100),
                 RandomUtils.randomNumber(1, 100));
+    }
+
+    public static void fillValuesThatDtoHavent(Person person) throws IOException {
+        person.setSex(RandomUtils.randomNumber(0, 1) == 0 ? Sex.MALE : Sex.FEMALE);
+        person.setInn(RandomUtils.randomInn());
+        person.setCountry(RandomUtils.randomLineFromResourceFile(COUNTRIES_FILE));
+        person.setHome(RandomUtils.randomNumber(1, 100));
+        person.setRoom(RandomUtils.randomNumber(1, 100));
     }
 }
