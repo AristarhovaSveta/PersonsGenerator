@@ -1,4 +1,4 @@
-package domain.dto;
+package core.domain.dto;
 
 import lombok.Getter;
 

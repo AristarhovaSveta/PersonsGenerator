@@ -1,7 +1,7 @@
-package service;
+package core.service;
 
 import com.itextpdf.text.DocumentException;
-import domain.Person;
+import core.domain.Person;
 
 import java.io.IOException;
 import java.util.List;

@@ -1,4 +1,4 @@
-package util;
+package core.util;
 
 import com.google.common.io.Resources;
 import com.itextpdf.text.*;

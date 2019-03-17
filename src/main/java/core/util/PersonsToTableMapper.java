@@ -1,8 +1,8 @@
-package util;
+package core.util;
 
-import domain.Person;
-import domain.Sex;
-import domain.Table;
+import core.domain.Person;
+import core.domain.Sex;
+import core.domain.Table;
 
 import java.util.List;
 import java.util.stream.Collectors;

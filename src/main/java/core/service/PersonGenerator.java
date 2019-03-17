@@ -1,13 +1,12 @@
-package service;
+package core.service;
 
-import domain.Person;
-import domain.Sex;
+import core.domain.Person;
+import core.domain.Sex;
 import org.joda.time.LocalDate;
 import org.joda.time.Years;
-import util.RandomUtils;
+import core.util.RandomUtils;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 public class PersonGenerator {
     private static final String SURNAMES_FILE = "surnames.txt";
@@ -50,8 +49,18 @@ public class PersonGenerator {
     }
 
     public static void fillValuesThatDtoHavent(Person person) throws IOException {
-        person.setSex(RandomUtils.randomNumber(0, 1) == 0 ? Sex.MALE : Sex.FEMALE);
+        String filePrefix = "";
+        switch (person.getSex()) {
+            case MALE:
+                filePrefix = "men_";
+                break;
+            case FEMALE:
+                filePrefix = "women_";
+                break;
+        }
+        person.setPatronymic(RandomUtils.randomLineFromResourceFile(filePrefix + PATRONYMICS_FILE));
         person.setInn(RandomUtils.randomInn());
+        person.setPostcode(String.valueOf(RandomUtils.randomNumber(100000, 200000)));
         person.setCountry(RandomUtils.randomLineFromResourceFile(COUNTRIES_FILE));
         person.setHome(RandomUtils.randomNumber(1, 100));
         person.setRoom(RandomUtils.randomNumber(1, 100));

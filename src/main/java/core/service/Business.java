@@ -1,26 +1,31 @@
-package service;
+package core.service;
 
 import com.google.common.collect.Lists;
 import com.itextpdf.text.DocumentException;
-import domain.Person;
-import domain.dto.PersonDto;
-import domain.dto.PersonsDto;
+import core.domain.Person;
+import core.domain.dto.PersonDto;
+import core.domain.dto.PersonsDto;
 import lombok.AllArgsConstructor;
-import util.PersonMapper;
-import util.RandomUtils;
+import core.util.PersonMapper;
+import core.util.RandomUtils;
+import lombok.Setter;
 
 import java.io.IOException;
 import java.util.List;
 
-@AllArgsConstructor
 public class Business {
+    private List<Person> persons = Lists.newArrayList();
+
+    @Setter
     private PersonsSaver personsSaver;
+
+    @Setter
     private PersonsApiService personsApiService;
 
-    private void generatePersonsToList(int count, List<Person> personList) {
+    private void generatePersons(int count) {
         for (int i = 0; i < count; ++i) {
             try {
-                personList.add(PersonGenerator.generatePerson());
+                persons.add(PersonGenerator.generatePerson());
             } catch (IOException e1) {
                 System.out.println("Не удалось сгенерировать человека с номером " + i);
             }
@@ -29,20 +34,23 @@ public class Business {
 
     public void work() {
         int count = RandomUtils.randomNumber(1, 30);
-        List<Person> persons = Lists.newArrayList();
 
         try {
             PersonsDto personsDto = personsApiService.getPersons(count);
+            System.out.println("Соединение установлено");
             for (PersonDto personDto : personsDto.getResults()) {
                 Person person = PersonMapper.mapPersonDtoToPerson(personDto);
                 PersonGenerator.fillValuesThatDtoHavent(person);
                 persons.add(person);
             }
         } catch (IOException e) {
+            System.out.println("Нет соединения");
             System.out.println("Не удалось сгенерировать людей с помощью api");
-            generatePersonsToList(count, persons);
+            generatePersons(count);
         }
+    }
 
+    public void save() {
         try {
             personsSaver.save(persons);
         } catch (IOException | DocumentException e) {

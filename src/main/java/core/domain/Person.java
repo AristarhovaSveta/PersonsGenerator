@@ -1,4 +1,4 @@
-package domain;
+package core.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,4 +25,16 @@ public class Person {
     private String street;
     private int home;
     private int room;
+
+    public Person(String surname, String name, int age, Sex sex, LocalDate birthDate,
+                  String area, String city, String street) {
+        this.surname = surname;
+        this.name = name;
+        this.age = age;
+        this.sex = sex;
+        this.birthDate = birthDate;
+        this.area = area;
+        this.city = city;
+        this.street = street;
+    }
 }
