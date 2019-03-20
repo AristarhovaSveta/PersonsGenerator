@@ -1,9 +1,8 @@
 package core;
 
-import core.service.Business;
-import core.service.ExcelPersonsSaverImpl;
-import core.service.PdfPersonsSaverImpl;
-import core.service.PersonsApiService;
+import core.dao.AddressDao;
+import core.dao.PersonsDao;
+import core.service.*;
 
 import java.io.File;
 
@@ -16,6 +15,7 @@ public class Main {
         PdfPersonsSaverImpl pdfPersonsSaverImpl = new PdfPersonsSaverImpl(new File("persons.pdf"));
 
         Business business = new Business();
+        business.setPersonsService(new PersonsService(new PersonsDao(), new AddressDao()));
         business.setPersonsApiService(personsApiService);
         business.work();
 
