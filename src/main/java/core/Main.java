@@ -1,33 +1,28 @@
 package core;
 
-import core.dao.AddressDao;
-import core.dao.PersonsDao;
-import core.domain.entity.Address;
-import core.domain.entity.Person;
-import core.service.*;
+import core.service.Business;
+import core.service.ExcelPersonsSaverImpl;
+import core.service.PdfPersonsSaverImpl;
+import core.service.PersonsApiService;
 
 import java.io.File;
-import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
         PersonsApiService personsApiService = new PersonsApiService();
 
-        ExcelPersonsSaver excelPersonsSaver = new ExcelPersonsSaver(new File("persons.xls"));
-        PdfPersonsSaver pdfPersonsSaver = new PdfPersonsSaver(new File("persons.pdf"));
-        PersonsService personsService = new PersonsService(new PersonsDao(), new AddressDao());
+        ExcelPersonsSaverImpl excelPersonsSaverImpl = new ExcelPersonsSaverImpl(new File("persons.xls"));
+        PdfPersonsSaverImpl pdfPersonsSaverImpl = new PdfPersonsSaverImpl(new File("persons.pdf"));
 
         Business business = new Business();
-        business.setPersonsService(personsService);
-
         business.setPersonsApiService(personsApiService);
         business.work();
 
-        business.setPersonsSaver(excelPersonsSaver);
+        business.setPersonsSaver(excelPersonsSaverImpl);
         business.save();
 
-        business.setPersonsSaver(pdfPersonsSaver);
+        business.setPersonsSaver(pdfPersonsSaverImpl);
         business.save();
     }
 }
