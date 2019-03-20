@@ -33,27 +33,27 @@ public class RandomUtils {
         return lines.get(randomNumber(0, lines.size() - 1));
     }
 
+    private static int INNStep(String inn, int arrOffset, int[] controlNumberCoefficients) {
+        int sum = 0;
+        int length = inn.length();
+        for (int i = 0; i < length; i++) {
+            sum += (inn.charAt(i) - '0') * controlNumberCoefficients[i + arrOffset];
+        }
+        return (sum % 11) % 10;
+    }
+
     public static String randomInn() {
         StringBuilder inn = new StringBuilder();
-        int firstControlNumber = 0;
-        int secondControlNumber = 0;
         final int[] controlNumberCoefficients = new int[]{
                 3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8
         };
         inn.append("77");
-        firstControlNumber += controlNumberCoefficients[1] * 7;
-        secondControlNumber += controlNumberCoefficients[0] * 7;
-        firstControlNumber += controlNumberCoefficients[2] * 7;
-        secondControlNumber += controlNumberCoefficients[1] * 7;
         for (int i = 2; i < 10; ++i) {
             int number = randomNumber(0, 9);
-            firstControlNumber += controlNumberCoefficients[i + 1] * number;
-            secondControlNumber += controlNumberCoefficients[i] * number;
             inn.append(number);
         }
-        secondControlNumber += controlNumberCoefficients[10] * firstControlNumber;
-        inn.append((firstControlNumber % 11) % 10);
-        inn.append((secondControlNumber % 11) % 10);
+        inn.append(INNStep(inn.toString(), 1, controlNumberCoefficients));
+        inn.append(INNStep(inn.toString(), 0, controlNumberCoefficients));
         return inn.toString();
     }
 
