@@ -12,6 +12,7 @@ import lombok.Setter;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Business {
     private List<Person> persons = Lists.newArrayList();
@@ -22,7 +23,15 @@ public class Business {
     @Setter
     private PersonsApiService personsApiService;
 
+    @Setter
+    private PersonsService personsService;
+
     private void generatePersons(int count) {
+        List<core.domain.entity.Person> allPersons = personsService.findAllPersons();
+        if (allPersons.size() != 0) {
+            persons.addAll(allPersons.stream().map(PersonMapper::mapEntityToPerson).collect(Collectors.toList()));
+            return;
+        }
         for (int i = 0; i < count; ++i) {
             try {
                 persons.add(PersonGenerator.generatePerson());
@@ -48,6 +57,7 @@ public class Business {
             System.out.println("Не удалось сгенерировать людей с помощью api");
             generatePersons(count);
         }
+        personsService.saveOrUpdatePersons(persons.stream().map(PersonMapper::mapPersonToEntity).collect(Collectors.toList()));
     }
 
     public void save() {
