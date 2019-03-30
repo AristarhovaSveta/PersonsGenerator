@@ -5,7 +5,6 @@ import com.itextpdf.text.DocumentException;
 import core.domain.Person;
 import core.domain.dto.PersonDto;
 import core.domain.dto.PersonsDto;
-import lombok.AllArgsConstructor;
 import core.util.PersonMapper;
 import core.util.RandomUtils;
 import lombok.Setter;
@@ -14,16 +13,14 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Setter
 public class Business {
     private List<Person> persons = Lists.newArrayList();
 
-    @Setter
     private PersonsSaver personsSaver;
 
-    @Setter
     private PersonsApiService personsApiService;
 
-    @Setter
     private PersonsService personsService;
 
     private void generatePersons(int count) {
@@ -57,7 +54,7 @@ public class Business {
             System.out.println("Не удалось сгенерировать людей с помощью api");
             generatePersons(count);
         }
-        personsService.saveOrUpdatePersons(persons.stream().map(PersonMapper::mapPersonToEntity).collect(Collectors.toList()));
+        personsService.saveOrUpdate(persons.stream().map(PersonMapper::mapPersonToEntity).collect(Collectors.toList()));
     }
 
     public void save() {

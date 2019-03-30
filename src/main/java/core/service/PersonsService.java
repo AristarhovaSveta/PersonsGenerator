@@ -14,13 +14,7 @@ public class PersonsService {
     private PersonsDao personsDao;
     private AddressDao addressDao;
 
-    public void savePerson(Person person) {
-        Long id = addressDao.save(person.getAddress());
-        person.getAddress().setId(id);
-        personsDao.save(person);
-    }
-
-    public void saveOrUpdatePersons(List<Person> persons) {
+    public void saveOrUpdate(List<Person> persons) {
         List<Address> addresses = persons.stream().map(Person::getAddress).collect(Collectors.toList());
         addressDao.save(addresses);
         for (Person person: persons) {
