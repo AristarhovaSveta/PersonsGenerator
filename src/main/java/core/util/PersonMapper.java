@@ -51,7 +51,7 @@ public class PersonMapper {
                 person.getName(),
                 person.getMiddlename(),
                 Years.yearsBetween(new LocalDate(person.getBirthday()), LocalDate.now()).getYears(),
-                person.getGender().equals("MALE") ? Sex.MALE : Sex.FEMALE,
+                person.getGender().equals("M") ? Sex.MALE : Sex.FEMALE,
                 new LocalDate(person.getBirthday()),
                 person.getInn(),
                 person.getAddress().getPostcode(),

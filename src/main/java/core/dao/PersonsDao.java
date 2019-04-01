@@ -19,18 +19,8 @@ public class PersonsDao {
 
     public void update(Person person) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        Transaction tx1 = session.beginTransaction();
-        session.update(person);
-        tx1.commit();
-        session.close();
-    }
-
-    public void save(List<Person> persons) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
-        for (Person person : persons) {
-            session.save(person);
-        }
+        session.update(person);
         tx.commit();
         session.close();
     }
@@ -45,7 +35,7 @@ public class PersonsDao {
 
     public boolean isFioExists(String surname, String name, String middlename) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        Query query = session.createQuery("select 1 from Person p where p.surname = :surname and p.name = :name and p.middlename = :middlename");
+        Query query = session.createQuery("from Person p where p.surname = :surname and p.name = :name and p.middlename = :middlename");
         query.setParameter("surname", surname);
         query.setParameter("name", name);
         query.setParameter("middlename", middlename);
